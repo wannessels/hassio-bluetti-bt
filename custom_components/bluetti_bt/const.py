@@ -12,5 +12,6 @@ DATA_LOCK = "lock"
 # Cuts the key exchange from thousands a day to a handful, but each unit
 # accepts one client at a time, so while the link is held the Bluetti phone
 # app cannot connect and the slot stays taken on a shared ESPHome proxy.
-# 0 disconnects after every read.
-KEEP_ALIVE_SECONDS = 0
+# 0 disconnects after every read. The phone-app lockout is accepted here
+# in exchange for cutting the key exchange from ~13k a day to a handful.
+KEEP_ALIVE_SECONDS = 60
