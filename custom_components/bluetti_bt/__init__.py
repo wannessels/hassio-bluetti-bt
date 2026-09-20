@@ -75,9 +75,20 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     # Setup platforms
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 
+    entry.async_on_unload(entry.add_update_listener(_async_update_listener))
+
     logger.debug("Setup done")
 
     return True
+
+
+async def _async_update_listener(hass: HomeAssistant, entry: ConfigEntry) -> None:
+    """Apply changed options.
+
+    The coordinator takes its polling interval at construction, so without a
+    reload an options change only lands on the next restart.
+    """
+    await hass.config_entries.async_reload(entry.entry_id)
 
 
 def device_info(entry: ConfigEntry):
