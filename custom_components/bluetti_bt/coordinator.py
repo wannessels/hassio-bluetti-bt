@@ -9,6 +9,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from bluetti_bt_lib import build_device, DeviceReader, DeviceReaderConfig
 
+from .const import KEEP_ALIVE_SECONDS
 from .utils import mac_loggable
 from .types import FullDeviceConfig
 
@@ -50,6 +51,7 @@ class PollingCoordinator(DataUpdateCoordinator):
             DeviceReaderConfig(
                 config.polling_timeout,
                 config.use_encryption,
+                KEEP_ALIVE_SECONDS,
             ),
             lock,
         )
