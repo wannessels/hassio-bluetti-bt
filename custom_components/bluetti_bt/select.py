@@ -195,6 +195,9 @@ class BluettiSelect(CoordinatorEntity, SelectEntity):
         """Write to device."""
 
         try:
+            # The unit takes one client, so a held read connection blocks this.
+            await self.coordinator.reader.release()
+
             device = await BleakScanner.find_device_by_address(self._address, timeout=5)
 
             if device is None:
