@@ -35,5 +35,5 @@
     "requirements": [
         "bluetti-bt-lib @ git+https://github.com/wannessels/bluetti-bt-lib.git@7aca00df83f57e08210cc95bfc59f89913469a38"
     ],
-    "version": "0.2.5"
+    "version": "0.2.6"
 }

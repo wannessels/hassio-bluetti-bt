@@ -44,6 +44,12 @@ class PollingCoordinator(DataUpdateCoordinator):
             self.logger.error("Device is unknown type: %s", config.name)
             return
 
+        keep_alive = (
+            max(KEEP_ALIVE_SECONDS, config.polling_interval * 1.5)
+            if KEEP_ALIVE_SECONDS > 0
+            else 0
+        )
+
         self.reader = DeviceReader(
             config.address,
             bluetti_device,
@@ -51,7 +57,7 @@ class PollingCoordinator(DataUpdateCoordinator):
             DeviceReaderConfig(
                 config.polling_timeout,
                 config.use_encryption,
-                KEEP_ALIVE_SECONDS,
+                keep_alive,
             ),
             lock,
         )
